@@ -1,0 +1,175 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.asbestosstar</groupId>
+    <artifactId>risugamis-modloader-abstract-basemod</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>Risugamis ModLoader Abstract BaseMod</name>
+    <description>
+        Minimal BaseMod abstraction for Risugami's ModLoader containing only
+        the required abstract methods needed to bootstrap simple mods.
+    </description>
+
+    <url>https://github.com/Asbestosstar/risugamis-modloader-abstract-basemod</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>asbestosstar</id>
+            <name>AsbestosStar</name>
+            <email>asbestosstar@asbestosstar.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>
+            scm:git:https://github.com/Asbestosstar/risugamis-modloader-abstract-basemod.git
+        </connection>
+
+        <developerConnection>
+            scm:git:https://github.com/Asbestosstar/risugamis-modloader-abstract-basemod.git
+        </developerConnection>
+
+        <url>
+            https://github.com/Asbestosstar/risugamis-modloader-abstract-basemod
+        </url>
+
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>
+            https://github.com/Asbestosstar/risugamis-modloader-abstract-basemod/issues
+        </url>
+    </issueManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>8</maven.compiler.release>
+    </properties>
+
+    <dependencies>
+        <!-- No dependencies required -->
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <!-- Java Compiler -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+
+                <configuration>
+                    <release>8</release>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+
+            <!-- Sources Jar -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Javadocs Jar -->
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.0</version>
+
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                    <source>8</source>
+                </configuration>
+            </plugin>
+
+            <!-- GPG Signing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Sonatype Central Publishing -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.7.0</version>
+
+                <extensions>true</extensions>
+
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!-- Optional local development profile -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+
+            <properties>
+                <gpg.skip>true</gpg.skip>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
